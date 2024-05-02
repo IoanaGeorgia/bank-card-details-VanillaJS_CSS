@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Interactive card details form</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    *{
+      margin:0px;
+      padding:0px;
+      font-size: 18px;  
+    letter-spacing: 1px; 
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+   }
+    
+    body{
+      overflow:hidden;
+    }
+    .mainWrapperBackground img {
+      height:100vh;
+      width:25vw;
+      background-color: black;
+
+    }
+    .mainWrapper{
+      width:100%;
+      height:100%;
+      position: relative;
+    }
+    .outerWrapper{
+      position:absolute;
+      left:0px;
+      top:0px;
+      width:100%;
+      height:100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+    .cardsWrapper{
+      height:100%;
+      width:50%;
+      position: relative;
+    }
+    .cardsWrapper > div{
+      width:23rem;
+      height:13rem;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      background-color: gray;
+      user-select: none;
+    }
+    .frontCard{
+      background-image: url('images\\bg-card-front.png');
+      border-radius: 5px;
+      color:white;
+      margin-top:4rem;
+      margin-left:25%;
+    }
+    .frontCard img{
+      position: absolute;
+      top:5%;
+      left:5%;
+    }
+    #cardFrontNumber{
+      width:100%;
+      text-align: center;
+      word-spacing: 200%;
+      letter-spacing: 8px;
+      font-weight: bolder;
+      margin-top: 20%;
+    }
+    .frontCard div{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width:85%;
+      margin-top:15%;
+
+    }
+    #cardFrontDate{
+      letter-spacing: 1px;
+      word-spacing: 100%;
+    }
+
+    .backCard{
+      background-image: url('images\\bg-card-back.png');
+      margin-top:20rem;
+      margin-left:40%;
+      box-shadow: 7px 3px 13px rgba(128, 128, 128, 0.508);
+      border-bottom:1px solid rgba(211, 211, 211, 0.868);
+      border-top:1px solid rgba(211, 211, 211, 0.868);
+
+    }
+    #backCardNumber{
+      color:white;
+      position: absolute;
+      top:45%;
+      right:15%;
+      letter-spacing: 3px;
+
+    }
+    .formWrapper{
+      width:50%;
+      height:100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .formSmallWrapper{
+      width:50%;
+      height:70%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-evenly;
+    }
+    .formSmallWrapper > span{
+      width:100%;
+    }
+    .formText{
+      font-weight: bolder;
+      text-transform: uppercase;
+      padding-bottom: 1rem;
+    }
+    input{
+      padding:1rem;
+      font-size: 0.9rem;
+      color:rgb(74, 74, 74);
+      border-radius: 5px;
+      border:2px solid rgb(198, 197, 197);
+      width:100%;
+      outline:none;
+      box-sizing: border-box;
+    }
+
+
+    input:focus{
+      border:2px solid purple;
+
+    }
+    
+    .formDate{
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .formDate div:nth-of-type(2){
+      width:70%;
+      margin-left:5%;
+      height: 100%;
+    }
+    .formDate div:nth-of-type(2) input{
+      width:100%;
+    
+    }
+    .dateInput{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width:90%;
+  
+    }
+    .formDate input{
+      width:35%;
+  
+    }
+    .formDate div:first-of-type .wrong{
+      font-size:2rem;
+    }
+
+    #formButton{
+      background-color: purple;
+      padding-top:3%;
+      padding-bottom: 3%;
+      width:100%;
+      color:white;
+      border-radius: 8px;
+      cursor: pointer;
+      border:none;
+
+    }
+    .wrong{
+      color:rgb(249, 70, 70);
+      visibility:hidden;
+      padding-top:0.3rem;
+      font-size:0.8rem;
+    }
+    #formWrapperSuccess{
+  
+      width:40%;
+      height:60%;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-evenly;
+      display: none;
+      text-align: center;
+  
+    }
+    h1{
+      font-size:40px;
+      width:100%;
+    }
+    h3{
+      font-size: 25px;
+      width:100%;
+    }
+    @media (max-width:1090px){
+      .formWrapper{
+        z-index:40;
+        width:100%;
+        position: absolute;
+
+      }
+      .mainWrapperBackground, .mainWrapperBackground img{
+        width:100%;
+      }
+      .formText{
+        color:white;
+      }
+      .frontCard{
+        margin-top:5rem;
+        margin-left:-5rem;
+      }
+      .backCard{
+        margin-left:4rem;
+      }
+      .cardsWrapper > div{
+        opacity:20%;
+        background-blend-mode: darken;
+      }
+      .formSmallWrapper{
+        padding:3rem 4rem;
+        backdrop-filter: blur(10px);
+        background-color: rgba(0, 0, 0, 0.285);
+      }
+      #formWrapperSuccess{
+        color:white;
+        padding:4rem;
+         backdrop-filter: blur(10px);
+        background-color: rgba(0, 0, 0, 0.285);
+      }
+    }
+    @media (max-width:600px){
+      .formDate{
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .formDate > div:last-of-type{
+        margin:0px;
+        margin-top:2rem;
+        width:100%;
+        box-sizing: border-box;
+        
+      }
+            #formWrapperSuccess{
+        padding:2rem;
+        width:80%;
+      }
+
+    }
+    @media (max-width:400px){
+      .formSmallWrapper{
+        width:100%;
+        padding:0px 2rem;
+      }
+
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mainWrapper">
+    <div class="mainWrapperBackground">
+      <img src="images\bg-main-desktop.png">
+      <div class="mainWrapperWhite"></div>
+    </div>
+
+    <div class="outerWrapper">
+      <div class="cardsWrapper">
+        <div class="frontCard">
+        <img src="images\card-logo.svg">
+        <p id="cardFrontNumber"> 0000 0000 0000 0000</p>
+       <div> 
+        <p id="cardFrontName">Jane Appleseed</p>
+        <p id="cardFrontDate"><span id='cardFrontMonth'>00</span> / <span id="cardFrontYear"> 00</span></p>
+      </div>
+      </div>
+
+
+
+      <div class="backCard">
+        <p id="backCardNumber">000</p>
+      </div>
+    </div>
+
+
+
+
+    <div class="formWrapper" >
+
+      <div id="formWrapperSuccess">
+        <h1>Thank you!</h1>
+        <h3>Your form has been submitted!</h3>
+      </div>
+
+      <div id="formSmall" class="formSmallWrapper" >
+        <span>
+        <p class="formText upperText">Cardholder name</p>
+        <input autocomplete="off" id="formName" type="text" placeholder="e.g. Jane Appleseed">
+        <p class="wrong" id="wrongName">Wrong format</p>
+        </span>
+
+        <span>
+        <p class="formText upperText">Card Number</p>
+        <input autocomplete="off" id='formNumber' type="text" placeholder="e.g. 1234 5678 1234 5678">
+        <p class="wrong" id="wrongNumber">Wrong number</p>
+      </span>
+
+        <div class="formDate">
+          <div>
+            <p class="formText">Exp. date (MM/YY)</p>
+            <div class="dateInput">
+              
+            <input autocomplete="off" id="formMonth" placeholder="MM">
+        <p class="wrong" id="wrongMonth">!</p>
+                
+                
+            <input autocomplete="off" id="formYear"  placeholder="YY">
+        <p class="wrong" id="wrongYear">!</p>
+
+            </div>
+          </div>
+          <div>
+            <p class="formText">CVC</p>
+            <input autocomplete="off" id='formCVC' placeholder="e.g. 123">
+        <p class="wrong" id="wrongCVC">Wrong format</p>
+
+          </div>
+        </div>
+      
+
+        <button id="formButton" onclick="confirm()">Confirm</button>
+
+      </div>
+
+
+
+  </div>
+
+    <script>
+
+let nameDiv=document.getElementById('formName')
+// let name=nameDiv.value
+      let numberDiv=document.getElementById('formNumber')
+      // let number=numberDiv.value
+      let monthDiv=document.getElementById('formMonth')
+      // let month=monthDiv.value
+      let yearDiv=document.getElementById('formYear')
+      // let year=yearDiv.value
+      let cvcDiv=document.getElementById('formCVC')
+      // let cvc=cvcDiv.value
+
+      let wrongName=document.getElementById('wrongName')
+      let wrongNumber=document.getElementById('wrongNumber')
+      let wrongYear=document.getElementById('wrongYear')
+      let wrongMonth=document.getElementById('wrongMonth')
+      let wrongCVC=document.getElementById('wrongCVC')
+
+      let cardName=document.getElementById('cardFrontName')
+      let cardNumber=document.getElementById('cardFrontNumber')
+      let cardMonth=document.getElementById('cardFrontMonth')
+      let cardYear=document.getElementById('cardFrontYear')
+      let carcCvc=document.getElementById('backCardNumber')
+
+      
+      
+
+
+    function confirm(){
+   
+      let name=document.getElementById('formName').value
+      let number=document.getElementById('formNumber').value
+      let month=document.getElementById('formMonth').value
+      let year=document.getElementById('formYear').value
+      let cvc=document.getElementById('formCVC').value
+      console.log(name, number, cvc, year, month)
+
+console.log(/^[A-Za-z]*$/.test(name) )
+
+      if(/^[A-Za-z]*$/.test(name) 
+      && /^[0-9]*$/.test(number) 
+      && cvc.length === 3
+      && /^[0-9]*$/.test(cvc) 
+      && month > 0
+      && month < 13
+      &&  year.length == 2
+     &&  /^[0-9]*$/.test(year) 
+     && /^[0-9]*$/.test(month)  ){
+
+      
+       cardName.innerHTML=name
+       cardNumber.innerHTML=number
+      cardMonth.innerHTML=month
+      cardYear.innerHTML=year
+      carcCvc.innerHTML=cvc
+
+
+      formSmall.style.display='none'
+      formWrapperSuccess.style.display='flex'
+      
+          }
+
+
+
+
+          if( !cvc || !cvc.length === 3 || !/^[0-9]*$/.test(cvc) ){
+        wrongCVC.style.visibility='visible'
+            cvcDiv.style.borderColor = 'red'
+      } else if ( cvc.length === 3 && /^[0-9]*$/.test(cvc) ){
+        wrongCVC.style.visibility='hidden'
+        cvcDiv.style.borderColor = 'purple'
+      }
+
+      if (!month || !/^[0-9]*$/.test(month) || +month < 0 || +month > 12){
+    
+        console.log(!/^[0-9]*$/.test(month) || +month < 0 || +month > 12, 
+        true)
+        wrongMonth.style.visibility='visible'
+        monthDiv.style.borderColor = 'red'
+
+      } else  if (/^[0-9]*$/.test(month) && +month > 0 && +month < 13){
+        console.log(/^[0-9]*$/.test(month) && +month > 0 && +month < 10, 'wot')
+        wrongMonth.style.visibility='hidden'
+         monthDiv.style.borderColor = 'purple'
+      }
+
+      if (!year ||!/^[0-9]*$/.test(year) || year.length != 2){
+        wrongYear.style.visibility='visible'
+        yearDiv.style.borderColor = 'red'
+      } else 
+      if (/^[0-9]*$/.test(year) && year.length == 2){
+        wrongYear.style.visibility='hidden'
+         yearDiv.style.borderColor = 'purple'
+      }
+      
+      if (!number ||!/^[0-9]*$/.test(number)) {
+        wrongNumber.style.visibility = 'visible'
+        numberDiv.style.borderColor = 'red'
+      } else if (/^[0-9]*$/.test(number)) {
+        wrongNumber.style.visibility = 'hidden'
+         numberDiv.style.borderColor = 'purple'
+      }
+
+      if (!name || !/^[A-Za-z]*$/.test(name)) {
+        wrongName.style.visibility = 'visible';
+        nameDiv.style.borderColor = 'red'
+
+      }
+      else if (/^[A-Za-z]*$/.test(name)) {
+        wrongName.style.visibility = 'hidden'
+         nameDiv.style.borderColor = 'purple'
+      }
+
+         
+    }  
+
+    </script>
+
+</body>
+</html>
