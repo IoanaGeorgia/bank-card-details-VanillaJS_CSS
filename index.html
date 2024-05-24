@@ -6,7 +6,7 @@
 
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   
-  <title>Frontend Mentor | Interactive card details form</title>
+  <title>Interactive card details form</title>
 
   <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
   <style>
@@ -220,14 +220,21 @@
       width:100%;
     }
     @media (max-width:1090px){
+      body{
+  overflow-x: hidden;
+      }
       .formWrapper{
         z-index:40;
         width:100%;
         position: absolute;
+        height:100dvh;
 
       }
       .mainWrapperBackground, .mainWrapperBackground img{
         width:100%;
+      }
+      .outerWrapper{
+         overflow-x: hidden;
       }
       .formText{
         color:white;
@@ -267,16 +274,27 @@
         box-sizing: border-box;
         
       }
+              .formSmallWrapper{
+          height:unset;
+        }
             #formWrapperSuccess{
         padding:2rem;
         width:80%;
       }
+      #formButton{
+        padding: 1.5rem 0rem;
+      }
 
     }
-    @media (max-width:400px){
+    @media (max-width:450px){
       .formSmallWrapper{
         width:100%;
-        padding:0px 2rem;
+        height:100%;
+
+        /* padding:0px 2rem; */
+      }
+      #formButton{
+        padding:1.5rem 0rem;
       }
 
     }
